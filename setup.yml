@@ -1,0 +1,16 @@
+---
+- hosts: localhost
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: install httpd
+    yum:
+      name: "{{ package }}"
+  - name: checking debug module working
+    debug:
+      msg: "testing debug module got success"
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: yes

@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  become: yes
+  gather_facts: no
+  tasks:
+  - name: install httpd
+    yum:
+      name: "{{ package }}"
+      state: removed
