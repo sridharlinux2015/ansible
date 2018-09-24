@@ -1,0 +1,39 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: install httpd 
+    yum: 
+      name: httpd
+      state: present
+    tags:
+      - httpd
+    when: not ansible_os_family == "RedHat"
+  - name: start service 
+    service: 
+      name: httpd
+      state: started
+      enabled: yes
+    ignore_errors: yes
+    tags:
+      - service
+  - name: using command 
+    command: cat /etc/ansible/condlooptagsregister/errorexamplefile
+    register: output_content
+    ignore_errors: yes
+  - name: using debug for printing output
+    debug:
+      msg: "{{ output_content.stdout }}"
+    when: output_content.stderr == ""
+  - name: debug for error
+    debug: 
+      msg: "{{ output_content.stderr }}"
+    when: not output_content.stderr == ""
+  - name: using loops 
+    yum:
+      name: "{{ item }}"
+    when: ansible_os_family == "RedHat"
+    with_items:
+     - tree
+     - wget
+      
