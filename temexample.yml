@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    test: check jija file
+  tasks: 
+  - name: install tree
+    yum: 
+      name: tree
+      state: present
+  - template:
+      src: template.j2
+      dest: /etc/ansible/templ
+  - shell: cat /etc/ansible/templ
+    register: result
+  - debug: 
+      var: result.stdout
