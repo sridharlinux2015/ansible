@@ -1,0 +1,16 @@
+---
+- name: ec2 instance
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: launing ec2
+    ec2:
+      instance_type: t2.micro
+      key_name: key...
+      image: ami-5b673c34
+      region: ap-south-1
+      group: test
+      count: 1
+      vpc_subnet_id: subnet-8a17c4e2
+      wait: yes
+      assign_public_ip: yes
