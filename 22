@@ -4,6 +4,4 @@
   yum:
     name: "{{ package }}"
     state: "{{ status }}"
-- name: start service
-  command: echo "checking handlers working"
-  notify: "starting service"
+notify: starting service

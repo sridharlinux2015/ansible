@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: installing httpd
+    yum: 
+      name: httpd
+      state: present
+    tags:
+      - http
+  - name: start service
+    service: 
+      name: "{{ localhost }}"
+      state: started
+    tags: 
+      - service
+
